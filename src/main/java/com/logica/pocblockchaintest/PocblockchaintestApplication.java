@@ -1,6 +1,5 @@
 package com.logica.pocblockchaintest;
 
-import com.logica.pocblockchaintest.configuration.WebjConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -12,7 +11,7 @@ public class PocblockchaintestApplication {
 	private static final Logger LOGGER = LoggerFactory.getLogger(PocblockchaintestApplication.class);
 
 	public static void main(String[] args) {
-		LOGGER.info("Poc blockchain");
+		LOGGER.info("POC blockchain");
 		SpringApplication.run(PocblockchaintestApplication.class, args);
 	}
 

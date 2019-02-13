@@ -1,7 +1,6 @@
-package com.logica.pocblockchaintest.configuration;
+package com.logica.pocblockchaintest.config;
 
 import com.logica.pocblockchaintest.model.Transaction;
-import com.logica.pocblockchaintest.model.Transaction3;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
@@ -23,7 +22,6 @@ import java.io.IOException;
 import java.math.BigInteger;
 
 @Configuration
-@EnableWebMvc
 @EnableConfigurationProperties(value = Web3jProperties.class)
 public class WebjConfig implements InitializingBean, DisposableBean {
 
@@ -46,7 +44,6 @@ public class WebjConfig implements InitializingBean, DisposableBean {
     public Web3j build()
     {
         return Web3j.build(new HttpService(web3jProperties.getUrl()));
-//        return Web3j.build(new IpcService("C:\\Blockchain\\chaindata\\"))
     }
 
     @Bean
@@ -103,13 +100,13 @@ public class WebjConfig implements InitializingBean, DisposableBean {
     {
         LOGGER.info("Loading Contract from contract address: {}", contractAddress);
         return Transaction.load(contractAddress, build(), credentials(PRIVATE_KEY), contractGasProvider());
-//        return Transaction1.load(contractAddress, build(), credentialsEth(), contractGasProvider());
+//        return Transaction.load(contractAddress, build(), credentialsEth(), contractGasProvider());
     }
 
     @Override
     public void afterPropertiesSet() throws Exception{
 //        String contractAddress = Transaction.deploy(web3j, credentials(PRIVATE_KEY), contractGasProvider()).send().getContractAddress();
-////        String contractAddress = Transaction1.deploy(web3j, credentialsEth(), contractGasProvider()).send().getContractAddress();
+////        String contractAddress = Transaction.deploy(web3j, credentialsEth(), contractGasProvider()).send().getContractAddress();
 //        LOGGER.info("Contract Address: "+contractAddress);
     }
 

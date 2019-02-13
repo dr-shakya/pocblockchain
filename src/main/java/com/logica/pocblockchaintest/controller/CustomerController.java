@@ -3,12 +3,9 @@ package com.logica.pocblockchaintest.controller;
 import com.logica.pocblockchaintest.dto.StatementDTO;
 import com.logica.pocblockchaintest.model.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.web3j.protocol.Web3j;
-import org.web3j.protocol.admin.Admin;
-import org.web3j.protocol.core.RemoteCall;
 
 import java.math.BigInteger;
 

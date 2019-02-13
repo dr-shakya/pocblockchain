@@ -1,4 +1,4 @@
-package com.logica.pocblockchaintest.configuration;
+package com.logica.pocblockchaintest.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
