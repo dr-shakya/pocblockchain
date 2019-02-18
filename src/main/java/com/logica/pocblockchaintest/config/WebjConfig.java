@@ -10,7 +10,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.web3j.crypto.CipherException;
 import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
@@ -29,6 +28,9 @@ public class WebjConfig implements InitializingBean, DisposableBean {
 
     public static final String contractAddress = "0x4c99a6b29b0d7184bf6bea42a178675f2971f00f";
     public static final String PRIVATE_KEY = "e712822f556bbbcee0c55648c000702b7a77c2868e5cc0084dc2b1848b040ef4";
+
+//    public static final String contractAddress = "";
+//    public static final String PRIVATE_KEY = "b5bd446497c059dd29c24c91329eff42b99edeab0c709bde936a866d41ee5eb6";
 
     @Autowired
     Web3jProperties web3jProperties;
@@ -78,7 +80,7 @@ public class WebjConfig implements InitializingBean, DisposableBean {
             @Override
             public BigInteger getGasPrice()
             {
-                return BigInteger.valueOf(22000000000L);
+                return null;
             }
 
             @Override
@@ -90,7 +92,7 @@ public class WebjConfig implements InitializingBean, DisposableBean {
             @Override
             public BigInteger getGasLimit()
             {
-                return BigInteger.valueOf(6721975);
+                return null;
             }
         };
     }
@@ -105,9 +107,9 @@ public class WebjConfig implements InitializingBean, DisposableBean {
 
     @Override
     public void afterPropertiesSet() throws Exception{
-//        String contractAddress = Transaction.deploy(web3j, credentials(PRIVATE_KEY), contractGasProvider()).send().getContractAddress();
-////        String contractAddress = Transaction.deploy(web3j, credentialsEth(), contractGasProvider()).send().getContractAddress();
-//        LOGGER.info("Contract Address: "+contractAddress);
+        String contractAddress = Transaction.deploy(web3j, credentials(PRIVATE_KEY), contractGasProvider()).send().getContractAddress();
+//        String contractAddress = Transaction.deploy(web3j, credentialsEth(), contractGasProvider()).send().getContractAddress();
+        LOGGER.info("Contract Address: "+contractAddress);
     }
 
     @Override
