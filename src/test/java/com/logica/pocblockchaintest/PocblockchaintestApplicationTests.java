@@ -13,5 +13,10 @@ public class PocblockchaintestApplicationTests {
 	public void contextLoads() {
 	}
 
+	@Test
+	public void Test(){
+
+	}
+
 }
 
