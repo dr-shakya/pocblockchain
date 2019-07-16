@@ -1,5 +1,6 @@
 package com.logica.pocblockchaintest.config;
 
+import com.logica.pocblockchaintest.model.Info;
 import com.logica.pocblockchaintest.model.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,10 +28,12 @@ public class WebjConfig implements InitializingBean, DisposableBean {
     private static final Logger LOGGER = LoggerFactory.getLogger(WebjConfig.class);
 
     public static final String contractAddress = "0x4c99a6b29b0d7184bf6bea42a178675f2971f00f";
-    public static final String PRIVATE_KEY = "e712822f556bbbcee0c55648c000702b7a77c2868e5cc0084dc2b1848b040ef4";
+    public static final String contractAddressInfo = "0x10320e8a1fafd374d6851436eb1f500639d7520a";
+    public static final String PRIVATE_KEY_TRANSACTION = "e712822f556bbbcee0c55648c000702b7a77c2868e5cc0084dc2b1848b040ef4";
+    public static final String PRIVATE_KEY_INFO = "1dbbdb220fb8fca26e3d5a9a868bbae27f40b71232dd23a079b06196a8d71879";
 
 //    public static final String contractAddress = "";
-//    public static final String PRIVATE_KEY = "b5bd446497c059dd29c24c91329eff42b99edeab0c709bde936a866d41ee5eb6";
+//    public static final String PRIVATE_KEY = "2d2fb3e1ef35161584333575b196be5ec2ebf09326b0709d1cbc1d79ae25ab99";
 
     @Autowired
     Web3jProperties web3jProperties;
@@ -101,15 +104,23 @@ public class WebjConfig implements InitializingBean, DisposableBean {
     public Transaction loadContract() throws IOException, CipherException
     {
         LOGGER.info("Loading Contract from contract address: {}", contractAddress);
-        return Transaction.load(contractAddress, build(), credentials(PRIVATE_KEY), contractGasProvider());
+        return Transaction.load(contractAddress, build(), credentials(PRIVATE_KEY_TRANSACTION), contractGasProvider());
 //        return Transaction.load(contractAddress, build(), credentialsEth(), contractGasProvider());
+    }
+
+    @Bean
+    public Info loadInfoContract() throws IOException, CipherException {
+        LOGGER.info("Loading Contract from contract address: {}", contractAddressInfo);
+        return Info.load(contractAddressInfo, build(), credentials(PRIVATE_KEY_INFO), contractGasProvider());
     }
 
     @Override
     public void afterPropertiesSet() throws Exception{
-        String contractAddress = Transaction.deploy(web3j, credentials(PRIVATE_KEY), contractGasProvider()).send().getContractAddress();
+//        String contractAddress = Transaction.deploy(web3j, credentials(PRIVATE_KEY_TRANSACTION), contractGasProvider()).send().getContractAddress();
+        String infoContractAddress = Info.deploy(web3j, credentials(PRIVATE_KEY_INFO), contractGasProvider()).send().getContractAddress();
 //        String contractAddress = Transaction.deploy(web3j, credentialsEth(), contractGasProvider()).send().getContractAddress();
-        LOGGER.info("Contract Address: "+contractAddress);
+//        LOGGER.info("Contract Address: " + contractAddress);
+        LOGGER.info("Contract Address: " + infoContractAddress);
     }
 
     @Override

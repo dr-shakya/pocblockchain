@@ -24,9 +24,13 @@ repositories {
 
 dependencies {
 	compile('org.web3j:core:4.1.1')
+	compile group: 'org.bytedeco.javacpp-presets', name: 'tesseract-platform', version: '4.0.0-1.4.4'
+	compile 'tech.tablesaw:tablesaw-core:0.32.6'
 	compile "io.springfox:springfox-core:2.9.2"
 	compile "io.springfox:springfox-swagger2:2.9.2"
 	compile "io.springfox:springfox-swagger-ui:2.9.2"
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

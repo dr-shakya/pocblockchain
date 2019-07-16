@@ -3,6 +3,8 @@ package com.logica.pocblockchaintest.controller;
 import com.logica.pocblockchaintest.dto.StatementDTO;
 import com.logica.pocblockchaintest.dto.TransactionReceiptDTO;
 import com.logica.pocblockchaintest.model.Transaction;
+import com.logica.pocblockchaintest.services.mapper.TransactionMapperService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,30 +16,12 @@ import java.math.BigInteger;
 
 @RestController
 @RequestMapping("customer")
+@RequiredArgsConstructor
 public class CustomerController {
 
-    @Autowired
-    Transaction transaction;
+    private final Transaction transaction;
 
-    @Autowired
-    Web3j web3j;
-
-    public TransactionReceiptDTO transactionReceiptMapper(TransactionReceipt transactionReceipt){
-        TransactionReceiptDTO transactionReceiptDTO = new TransactionReceiptDTO();
-        transactionReceiptDTO.setTransactionHash(transactionReceipt.getTransactionHash());
-        transactionReceiptDTO.setTransactionIndex(transactionReceipt.getTransactionIndex());
-        transactionReceiptDTO.setBlockHash(transactionReceipt.getBlockHash());
-        transactionReceiptDTO.setBlockNumber(transactionReceipt.getBlockNumber());
-        transactionReceiptDTO.setCumulativeGasUsed(transactionReceipt.getCumulativeGasUsed());
-        transactionReceiptDTO.setGasUsed(transactionReceipt.getGasUsed());
-        transactionReceiptDTO.setContractAddress(transactionReceipt.getContractAddress());
-        transactionReceiptDTO.setRoot(transactionReceipt.getRoot());
-        transactionReceiptDTO.setStatus(transactionReceipt.getStatus());
-        transactionReceiptDTO.setFrom(transactionReceipt.getFrom());
-        transactionReceiptDTO.setTo(transactionReceipt.getTo());
-        return transactionReceiptDTO;
-    }
-
+    private final TransactionMapperService transactionMapperService;
     @GetMapping("{customerName}")
     public ResponseEntity getCustomer(@PathVariable String customerName) throws Exception {
         return ResponseEntity.ok(transaction.getCustomer(customerName).send());
@@ -45,7 +29,7 @@ public class CustomerController {
 
     @PostMapping("request")
     public ResponseEntity<TransactionReceiptDTO> requestBalanceUpdate(@RequestBody StatementDTO statementDTO) throws Exception{
-        TransactionReceiptDTO transactionReceiptDTO = transactionReceiptMapper(transaction.requestBalanceUpdate(statementDTO.getCustomerName(), statementDTO.getBankName(), statementDTO.getMessage(), statementDTO.getBalance()).send());
+        TransactionReceiptDTO transactionReceiptDTO = transactionMapperService.transactionReceiptMapper(transaction.requestBalanceUpdate(statementDTO.getCustomerName(), statementDTO.getBankName(), statementDTO.getMessage(), statementDTO.getBalance()).send());
         return new ResponseEntity<>(transactionReceiptDTO, HttpStatus.ACCEPTED);
     }
 
